@@ -19,20 +19,15 @@
 // Create a card for each of the articles and add the card to the DOM.
 axios.get('https://lambda-times-backend.herokuapp.com/articles').then(resp => {
   console.log('Cards ', resp);
-  resp.data.articles.bootstrap.forEach(item => {
-    cardsContainer.appendChild(makeArticle(item));
-  });
-  resp.data.articles.javascript.forEach(item => {
-    cardsContainer.appendChild(makeArticle(item));
-  });
-  resp.data.articles.jquery.forEach(item => {
-    cardsContainer.appendChild(makeArticle(item));
-  });
-  resp.data.articles.node.forEach(item => {
-    cardsContainer.appendChild(makeArticle(item));
-  });
-  resp.data.articles.technology.forEach(item => {
-    cardsContainer.appendChild(makeArticle(item));
+  // Create array for article topics
+  let articles = Object.keys(resp.data.articles);
+  console.log('List of articles', articles);
+  // Loops through article topic array
+  articles.forEach(element => {
+    // Loop through each article relating to topic
+    resp.data.articles[element].forEach(item => {
+      cardsContainer.appendChild(makeArticle(item));
+    });
   });
 });
 
